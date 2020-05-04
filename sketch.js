@@ -1,4 +1,4 @@
-let brush = "globe";
+let brush = "purple"; //redsquare
 let x = 200;
 let y = 200;
 let extraCanvas;
@@ -20,8 +20,6 @@ let ball13 ={x: 250, y:1, size: 12, vx: 0, vy:3, color:[255]}
 let ball14 ={x: 270, y:1, size: 12, vx: 0, vy:2, color:[255]}
 let ball15 ={x: 290, y:1, size: 12, vx: 0, vy:1, color:[255]}
 let ball16 ={x: 310, y:1, size: 12, vx: 0, vy:2, color:[255]}
-
-
 
 let balls = [ball1, ball2, ball3, ball4, ball5, ball6,ball7,ball8, ball9, ball10, ball11, ball12, ball13, ball14, ball15, ball16]
 
@@ -63,7 +61,7 @@ function setup() {
 
 function draw() {
 
-  let color_1 = color(255, 40, 2)
+  let color_1 = color(247, 32, 78)//(255, 40, 2)
       let color_2 = color(150, 6, 6)
 
 
@@ -76,6 +74,20 @@ function draw() {
   // background(255, 40, 2);
   x += random(-5, 5);
   y += random(-5, 5);
+
+
+  let color_3 = color(150, 6, 6)
+  let color_4 = color (247, 32, 78)
+
+
+      let fade_amount2 = mouseY / height
+      let lerped_color2 = lerpColor(color_3, color_4, fade_amount2)
+
+let color_5 = color(121, 237, 140)//(138, 52, 57)
+let color_6 = color(232, 255, 236)//(252, 184, 188)
+
+      let fade_amount3 = mouseY / height
+      let lerped_color3 = lerpColor(color_6, color_5, fade_amount3)
 
 
 
@@ -91,25 +103,26 @@ function draw() {
     extraCanvas.ellipse(320, 240, random(0,600), random(0,300))
     }
 
-    if (brush == "purple"){
-    extraCanvas.stroke (random(142, 236), random(0, 212), 80);
+    if (brush == "eraser"){
+    extraCanvas.stroke (lerped_color2);
     extraCanvas.strokeWeight(1);
-    extraCanvas.fill(random(225, 265), random(90, 130), 138, 20);
-    extraCanvas.rectMode(CORNERS);
-    extraCanvas.rect(random(0, 640), random(0, 480) , pmouseX + random(-80, 80), pmouseY + random(-80, 80) )
-    extraCanvas.rectMode(CORNER)
+    extraCanvas.fill(lerped_color);
+    //extraCanvas.rectMode(CORNERS)
+    extraCanvas.circle(mouseX + random(-100,100) , mouseY + random(-50,50), random(1, 20)  )
+    //extraCanvas.rectMode(CORNER)
     }
+
 
     if (brush == "white"){
     extraCanvas.stroke(0,0,0, 100)
     extraCanvas.strokeWeight(1)
     extraCanvas.fill(255)
-    extraCanvas.circle(mouseX + random(-640, 640) , mouseY + random(-480, 480), random(1, 20))
+    extraCanvas.circle(mouseX + random(-320, 320) , mouseY + random(-240, 240), random(1, 20))
     }
 
     if (brush == "blue"){
-    extraCanvas.stroke(144, 167, 232, random(0, 180))
-    extraCanvas.strokeWeight(8)
+    extraCanvas.stroke (199, 240, 206, random(0, 180))//(250, 167, 185, random(180, 280))//(144, 167, 232, random(0, 180))
+    extraCanvas.strokeWeight(5)
     extraCanvas.fill(246, 235, 255, 80)
     extraCanvas.circle(mouseX + random(-100, 100), mouseY + random(-200, 200), random(2, 30))
     // line(mouseX, mouseY, pmouseX, pmouseY)
@@ -123,12 +136,26 @@ function draw() {
     }
 
     if (brush == "yellowline"){
-    extraCanvas.stroke(255, 221, random(0, 255), 100)
+    extraCanvas.stroke(random(192,232), random(158,198), 185)//(255, 221, random(0, 255), 100)
     extraCanvas.strokeWeight(1)
     extraCanvas.line(0, mouseY, 640, mouseY)
     // line(mouseX, mouseY, pmouseX, pmouseY)
     }
 
+    if (brush == "pinkline"){
+    extraCanvas.stroke(250, 182, 220, 200)
+    extraCanvas.strokeWeight(1)
+    extraCanvas.line(mouseX + random (0, 640), mouseY , mouseX , mouseY + random (0, 480))
+    // line(mouseX, mouseY, pmouseX, pmouseY)
+  }
+
+    if (brush == "redsquare"){
+    extraCanvas.stroke (lerped_color2)
+    extraCanvas.noFill()
+    extraCanvas.strokeWeight(1)
+    extraCanvas.square(mouseX , mouseY, 0 - random(0, 200))
+    // line(mouseX, mouseY, pmouseX, pmouseY)
+    }
 }
 
 
@@ -292,14 +319,19 @@ function mouseClicked() {
         brush = "blue"
         }
 
-      else if (mouseX > 160 && mouseX < 480 && mouseY > 120 && mouseY < 360){
+      else if (mouseX > 160 && mouseX < 480 && mouseY > 120 && mouseY < 300){
         print("3rd button")
         brush = "globe"
         }
 
-      else if (mouseX > 0 && mouseX < 320 && mouseY > 0 && mouseY < 120){
+      else if (mouseX > 0 && mouseX < 160 && mouseY > 120 && mouseY < 360){
           print("4th button")
-          brush = "purple"
+          brush = "pinkline"
+          }
+
+      else if (mouseX > 480 && mouseX < 640 && mouseY > 120 && mouseY < 360){
+          print("4th button")
+          brush = "redsquare"
           }
 
       else if (mouseX > 0 && mouseX < 640 && mouseY > 360 && mouseY < 420){
@@ -311,6 +343,11 @@ function mouseClicked() {
         print("6th button")
         brush = "yellowline"
         }
+
+        else if (mouseX > 160 && mouseX < 480 && mouseY > 300 && mouseY < 360){
+          print("7th button")
+          brush = "eraser"
+          }
 
 
 
