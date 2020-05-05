@@ -1,4 +1,4 @@
-let brush = "redsquare"; //redsquare
+let brush = "redsquare"; 
 let x = 200;
 let y = 200;
 let extraCanvas;
